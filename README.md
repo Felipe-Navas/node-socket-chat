@@ -18,7 +18,7 @@ This README would normally document whatever steps are necessary to get your app
         * PORT= -> In this variable add the port number where the server will run                   
 
 * How to run the app?
-    * ```node app```
+    * ```node server/server.js```
     * ```npm start```
 * Dependencies
     * "express": "^4.16.3",
