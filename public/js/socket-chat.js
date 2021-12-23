@@ -25,14 +25,26 @@ socket.on('disconnect', function() {
 });
 
 // Enviar información
-socket.emit('enviarMensaje', {
-    usuario: 'Felipe',
-    mensaje: 'Hola Mundo'
-}, function(resp) {
-    console.log('respuesta server: ', resp);
+// socket.emit('crearMensaje', {
+//     usuario: 'Felipe',
+//     mensaje: 'Hola Mundo'
+// }, function(resp) {
+//     console.log('respuesta server: ', resp);
+// });
+
+// Escuchar información
+socket.on('crearMensaje', function(mensaje) {
+    console.log('Servidor:', mensaje);
 });
 
 // Escuchar información
-socket.on('enviarMensaje', function(mensaje) {
-    console.log('Servidor:', mensaje);
+// Cuando un usuario entra o sale del chat
+socket.on('listaPersona', function(personas) {
+    console.log(personas);
+});
+
+
+// Mensaje Privados
+socket.on('mensajePrivado', function(mensaje) {
+    console.log('Mensaje privado;', mensaje)
 });
