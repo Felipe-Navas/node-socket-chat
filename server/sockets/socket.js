@@ -18,24 +18,24 @@ io.on('connection', (client) => {
 
         let personas = usuarios.agregarPersona(client.id, data.nombre, data.sala);
         
-        client.broadcast.emit('listaPersona', usuarios.getPersonas());
+        client.broadcast.to(data.para).emit('listaPersona', usuarios.getPersonasPorSala(data.sala));
 
-        callback(personas);
+        callback(usuarios.getPersonasPorSala(data.sala));
     });
 
-    client.on('crearMensaje', (data => {
+    client.on('crearMensaje', ((data) => {
 
         const persona = usuarios.getPersona(client.id);
         const mensaje = crearMensaje(persona.nombre, data.mensaje);
 
-        client.broadcast.emit('crearMensaje', mensaje);
+        client.broadcast.to(persona.para).emit('crearMensaje', mensaje);
     }));
 
     client.on('disconnect', () => {
         let personaBorrada = usuarios.borrarPersona( client.id );
 
-        client.broadcast.emit('crearMensaje', crearMensaje('Administrador', `${personaBorrada.nombre} salió`));
-        client.broadcast.emit('listaPersona', usuarios.getPersonas());
+        client.broadcast.to(personaBorrada.para).emit('crearMensaje', crearMensaje('Administrador', `${personaBorrada.nombre} salió`));
+        client.broadcast.to(personaBorrada.para).emit('listaPersona', usuarios.getPersonasPorSala(personaBorrada.sala));
     });
 
     // Mensajes privados
