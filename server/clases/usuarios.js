@@ -41,7 +41,7 @@ class Usuarios {
 
         let personaBorrada = this.getPersona(id);
 
-        this. personas = this.personas.filter(persona => {
+        this.personas = this.personas.filter(persona => {
             return persona.id != id;
         });
 
